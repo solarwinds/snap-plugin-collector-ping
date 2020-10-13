@@ -7,5 +7,12 @@ schedule:
 
 plugins:
   - plugin_name: ping
+    config:
+      target_addresses:
+        - www.solarwinds.com
+      interval_sec: 3
+      requests: 3
+    tags:
+      category: homepage
     publish:
       - plugin_name: publisher-appoptics

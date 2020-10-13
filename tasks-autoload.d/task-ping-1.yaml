@@ -1,0 +1,20 @@
+---
+version: 2
+
+schedule:
+  type: cron
+  interval: "0 * * * * *"
+
+plugins:
+  - plugin_name: ping
+    config:
+      target_addresses:
+        - www.appoptics.com
+        - www.loggly.com
+        - www.pingdom.com
+      interval_sec: 5
+      requests: 3
+    tags:
+      category: services 
+    publish:
+      - plugin_name: publisher-appoptics
