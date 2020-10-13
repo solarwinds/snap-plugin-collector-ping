@@ -19,19 +19,31 @@ package main
 import (
 	"context"
 
+	"github.com/adamiklukasz/go-ping"
 	"github.com/solarwinds/snap-plugin-lib/v2/plugin"
 	"github.com/solarwinds/snap-plugin-lib/v2/runner"
 )
 
 const (
 	pluginName    = "ping"
-	pluginVersion = "0.0.1"
+	pluginVersion = "0.0.2"
+
+	targetAddr = "www.solarwinds.com"
 )
 
 type pingCollector struct {
 }
 
 func (c *pingCollector) Collect(ctx plugin.CollectContext) error {
+	dur, err := ping.Ping(targetAddr)
+	if err != nil {
+		return err
+	}
+
+	durMs := int(float64(dur) / 1000000)
+
+	ctx.AddMetric("/solarwinds/ping/time", durMs, plugin.MetricTag("target", targetAddr), plugin.MetricUnit("ms"))
+
 	return nil
 }
 

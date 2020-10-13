@@ -1,0 +1,11 @@
+---
+version: 2
+
+schedule:
+  type: cron
+  interval: "0 * * * * *"
+
+plugins:
+  - plugin_name: ping
+    publish:
+      - plugin_name: publisher-appoptics
